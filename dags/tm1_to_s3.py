@@ -1,4 +1,5 @@
 from airflow import DAG
+from airflow.models import Variable
 from airflow.utils.dates import days_ago, timedelta
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.S3_hook import S3Hook 
@@ -18,7 +19,10 @@ dag = DAG(
     default_args=default_args,
 )
 
-def cube_view_to_s3(cube, view, **kwargs):
+
+dag_config = Variable.get("tm1_to_s3_example_config", deserialize_json=True)
+
+def cube_view_to_s3(cube, view, key, bucket, **kwargs):
 
     # create the hook and initialise the instance of the TM1Service object
     tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
@@ -31,11 +35,11 @@ def cube_view_to_s3(cube, view, **kwargs):
     s3_hook = S3Hook(aws_conn_id="s3_default")
 
     # write file to s3
-    s3_hook.load_string(string_data=view_data, key="airflow-test/tm1_test_hook.csv", bucket_name="scrambldbucket", replace=True)
+    s3_hook.load_string(string_data=view_data, key=key, bucket_name=bucket, replace=True)
 
 t1 = PythonOperator(
     task_id="read_from_TM1",
     python_callable=cube_view_to_s3,
-    op_kwargs = {"cube":"Revenue","view":"zExportData"},
+    op_kwargs = {"cube":dag_config["cube"], "view":dag_config["view"], "key":dag_config["key"], "bucket":dag_config["bucket"] },
     dag=dag,
 )
