@@ -26,7 +26,6 @@ def cube_view_to_s3(cube, view, key, bucket, **kwargs):
 
     # create the hook and initialise the instance of the TM1Service object
     tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
-    tm1_hook.init_tm1_service()
 
     # pull data from a view
     view_data = tm1_hook.tm1.cubes.cells.execute_view_csv(cube_name=cube, view_name=view, private=False)
