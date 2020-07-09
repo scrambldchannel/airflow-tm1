@@ -19,13 +19,19 @@ class TM1Hook(BaseHook):
         self.port = self.conn.port
         self.user = self.conn.login
         self.password = self.conn.password
-        self.ssl = self.conn.extra_dejson['ssl']
+
+        # check for additional parameters in conn.extra
+        extra_arg_names = ["base_url", "decode_b64", "namespace", "ssl", "session_context", "logging", "timeout", "connection_pool_size"]
+        extra_args = {name: val for name, val in self.conn.extra_dejson.items() if name in extra_arg_names}
+
+
         self.tm1 = TM1Service(
             address=self.address,
             port=self.port,
             user=self.user,
             password=self.password,
-            ssl=self.ssl
+            **extra_args
         )
+
         self.db = self.tm1.server.get_server_name()
         self.server_version = self.tm1.server.get_product_version()
