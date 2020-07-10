@@ -11,4 +11,6 @@ Connect to a TM1 server
 
     tm1_hook = TM1Hook(conn_id="tm1_default")
 
+    tm1 = tm1_hook.get_conn()
+
 

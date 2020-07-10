@@ -30,6 +30,7 @@ In your DAG file:
 from airflow_tm1.hooks import TM1Hook
 
 tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
+tm1 = tm1_hook.get_conn()
 ```
 
 This will attempt to connect to the TM1 server using the details provided and initialise an instance of the TM1Service class than be accessed at `tm1_hook.tm1`
