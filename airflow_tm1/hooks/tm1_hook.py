@@ -1,5 +1,4 @@
 from airflow.hooks.base_hook import BaseHook
-from airflow.exceptions import AirflowException
 from TM1py.Services import TM1Service
 
 class TM1Hook(BaseHook):
@@ -9,11 +8,25 @@ class TM1Hook(BaseHook):
 
     def __init__(self, tm1_conn_id='tm1_default'):
         """
-        Prepares hook to connect to a TM1 database.
+        A hook that uses TM1py to connect to a TM1 database.
         :param tm1_conn_id: The name of the TM1 connection to use.
         :type tm1_conn_id: str
         """
         self.tm1_conn_id = tm1_conn_id
+        self.conn = None
+        self.address = None
+        self.port = None
+        self.user = None
+        self.password = None
+        self.db = None
+        self.server_version = None
+
+    def get_conn(self):
+        """
+        Returns the TM1 connection.
+        :return: TM1Service
+        """
+        
         self.conn = self.get_connection(self.tm1_conn_id)
         self.address = self.conn.host
         self.port = self.conn.port
@@ -39,5 +52,4 @@ class TM1Hook(BaseHook):
         self.db = self.tm1.server.get_server_name()
         self.server_version = self.tm1.server.get_product_version()
 
-
-    
+        return self.tm1
