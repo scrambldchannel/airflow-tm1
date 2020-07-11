@@ -27,7 +27,7 @@ Any other parameter accepted by the TM1py RestService constructor (eg base_url, 
 In your DAG file:
 
 ```python
-from airflow_tm1.hooks import TM1Hook
+from airflow_tm1.hooks.tm1 import TM1Hook
 
 tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
 tm1 = tm1_hook.get_conn()
