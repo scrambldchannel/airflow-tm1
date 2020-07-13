@@ -6,7 +6,7 @@ class TM1Hook(BaseHook):
     Interact with IBM Cognos TM1, using the TM1py library.
     """
 
-    def __init__(self, tm1_conn_id: str='tm1_default'):
+    def __init__(self, tm1_conn_id: str='tm1_default') -> None:
         """
         A hook that uses TM1py to connect to a TM1 database.
         :param tm1_conn_id: The name of the TM1 connection to use.
@@ -20,7 +20,7 @@ class TM1Hook(BaseHook):
         self.db = None
         self.server_version = None
 
-    def get_conn(self):
+    def get_conn(self) -> TM1Service:
         """
         Returns the TM1 connection.
         :return: TM1Service
