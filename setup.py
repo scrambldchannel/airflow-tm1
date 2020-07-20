@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="airflow-tm1",
-    version="0.0.4",
+    version="0.0.5",
     author="Alexander Sutcliffe",
     author_email="sutcliffe.alex@gmail.com",
     description="A package to simplify connecting to the TM1 REST API from Apache Airflow",
@@ -22,7 +22,14 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-                    "apache-airflow",
-                     "TM1py",
-                     ],
+        "apache-airflow",
+        "TM1py",
+    ],
+    tests_require=[
+        "pytest",
+    ],
+    extras_require={
+        "devel":  ["pre-commit"],
+    }
+
 )
