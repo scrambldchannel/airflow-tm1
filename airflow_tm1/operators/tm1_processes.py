@@ -27,9 +27,12 @@ class TM1RunTIOperator(BaseOperator):
     def execute(self, context: dict) -> None:
         tm1_hook = TM1Hook(tm1_conn_id=self.tm1_conn_id)
         if tm1_hook.tm1.processes.exists(self.ti_name):
-            print(f"Process {self.ti_name} executed.")
-            tm1_hook.tm1.processes.execute_with_return(
+            print(
+                f"Process {self.ti_name} executed on TM1 server {tm1_hook.tm1.server}.")
+            result = tm1_hook.tm1.processes.execute_with_return(
                 self.ti_name, self.paramaters)
+            print(
+                f"Process {self.ti_name} returned {result} on TM1 server {tm1_hook.tm1.server}.")
         else:
             print(
                 f"Process {self.ti_name} does not exist on TM1 server {tm1_hook.tm1.server}.")
