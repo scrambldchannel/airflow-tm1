@@ -20,9 +20,9 @@ Create a connection in Airflow with at least the following parameters set:
 * Login
 * Port
 * Extras
-  * ssl 
+  * ssl
 
-Any other parameter accepted by the TM1py RestService constructor (eg base_url, namespace etc) can also be added as a key in the Extras field in the connection. 
+Any other parameter accepted by the TM1py RestService constructor (eg base_url, namespace etc) can also be added as a key in the Extras field in the connection.
 
 In your DAG file:
 
