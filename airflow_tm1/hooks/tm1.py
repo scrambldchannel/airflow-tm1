@@ -1,3 +1,5 @@
+from typing import Optional
+
 from airflow.hooks.base_hook import BaseHook
 from TM1py.Services import TM1Service
 
@@ -14,6 +16,7 @@ class TM1Hook(BaseHook):
         :type tm1_conn_id: str
         """
         self.tm1_conn_id = tm1_conn_id
+        self.tm1: Optional[TM1Service] = None
         self.address = None
         self.port = None
         self.user = None
