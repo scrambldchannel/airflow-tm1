@@ -17,12 +17,14 @@ class TM1RunTIOperator(BaseOperator):
     """
 
     @apply_defaults
-    def __init__(self,
-                 process_name: str,
-                 tm1_conn_id: str = "tm1_default",
-                 parameters: Optional[dict] = None,
-                 *args,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        process_name: str,
+        tm1_conn_id: str = "tm1_default",
+        parameters: Optional[dict] = None,
+        *args,
+        **kwargs,
+    ) -> None:
 
         super().__init__(*args, **kwargs)
 
@@ -37,8 +39,10 @@ class TM1RunTIOperator(BaseOperator):
 
         if not tm1.processes.exists(self.process_name):
             raise Exception(
-                f"Process {self.process_name} not found on TM1 server {tm1_hook.db}.")
+                f"Process {self.process_name} not found on TM1 server {tm1_hook.db}."
+            )
         else:
             print(
-                f"Process {self.process_name} executed on TM1 server {tm1_hook.db} with parameters {self.parameters}.")
+                f"Process {self.process_name} executed on TM1 server {tm1_hook.db} with parameters {self.parameters}."
+            )
             tm1.processes.execute(self.process_name, **self.parameters)

@@ -20,16 +20,8 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
-    install_requires=[
-        "apache-airflow",
-        "TM1py",
-    ],
-    tests_require=[
-        "pytest",
-    ],
-    extras_require={
-        "devel":  ["pre-commit"],
-    }
-
+    python_requires=">=3.6",
+    install_requires=["apache-airflow", "TM1py", ],
+    tests_require=["pytest", ],
+    extras_require={"devel": ["pre-commit"], },
 )

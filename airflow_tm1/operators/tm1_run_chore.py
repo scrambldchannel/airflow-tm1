@@ -1,5 +1,3 @@
-from typing import Optional
-
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
@@ -17,11 +15,9 @@ class TM1RunChoreOperator(BaseOperator):
     """
 
     @apply_defaults
-    def __init__(self,
-                 chore_name: str,
-                 tm1_conn_id: str = "tm1_default",
-                 *args,
-                 **kwargs) -> None:
+    def __init__(
+        self, chore_name: str, tm1_conn_id: str = "tm1_default", *args, **kwargs
+    ) -> None:
 
         super().__init__(*args, **kwargs)
 
@@ -35,7 +31,8 @@ class TM1RunChoreOperator(BaseOperator):
 
         if not tm1.chores.exists(self.chore_name):
             raise Exception(
-                f"Chore {self.chore_name} not found on TM1 server {tm1_hook.db}.")
+                f"Chore {self.chore_name} not found on TM1 server {tm1_hook.db}."
+            )
         else:
             print(
                 f"Chore {self.chore_name} executed on TM1 server {tm1_hook.db}.")
