@@ -26,7 +26,7 @@ class TM1Hook(BaseHook):
 
     def get_conn(self) -> TM1Service:
         """
-        Returns the TM1 connection.
+        Uses the connection details to create and return an instance of a TM1Service object.
         :return: TM1Service
         """
         conn = self.get_connection(self.tm1_conn_id)

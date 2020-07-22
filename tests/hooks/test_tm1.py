@@ -18,7 +18,7 @@ class TestTM1Hook(unittest.TestCase):
             login="admin",
             password="apple",
             port=10001,
-            extra='{"ssl":false}'
+            extra="""{"ssl":false}"""
         )
         session = settings.Session()
         session.add(conn)
