@@ -35,12 +35,12 @@ class TM1ElementSensor(BaseSensorOperator):
                 f"Dimension {self.dimension} not found on TM1 server {tm1_hook.db}.")
 
         if self.hierarchy:
-            if not self.hierarchy in tm1.dimensions.get(self.dimension).hierarchies():
+            if self.hierarchy not in tm1.dimensions.get(self.dimension).hierarchies():
                 raise Exception(
-                    f"Dimension {self.dimension} has no hierarchy {self.hierarchy} on TM1 server {tm1_hook.db}.")
+                    f"Dimension {self.dimension} has no hierarchy {self.hierarchy} on server {tm1_hook.db}.")
 
             return tm1.dimensions.get(self.dimension).get_hierarchy(self.hierarchy).contains_element(self.element)
         else:
-            for h in tm1.dimensions.get(self.dimension).hierarchies():
+            for h in tm1.dimensions.get(self.dimension).hierarchies:
                 return h.contains_element(self.element)
             return False
