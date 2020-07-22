@@ -10,8 +10,8 @@ class TM1RunTIOperator(BaseOperator):
     """
     This operator runs a TI process
 
-    :param ti_name: The TI process to run.
-    :type ti_name: str
+    :param process_name: The TI process to run.
+    :type process_name: str
     :param tm1_conn_id: The Airflow connection used for TM1 credentials.
     :type tm1_conn_id: str
     """
