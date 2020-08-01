@@ -32,4 +32,4 @@ with DAG(dag_id="example_value_sensor", default_args=default_args) as dag:
 
     t2 = DummyOperator(task_id='do_nothing')
 
-    t1 < t2
+    t1 >> t2
