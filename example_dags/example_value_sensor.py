@@ -1,6 +1,7 @@
 from operator import eq, ge, gt, le, lt, ne
 
 from airflow import DAG
+from airflow.operators.dummy_operator import DummyOperator
 from airflow.utils.dates import days_ago, timedelta
 
 from airflow_tm1.sensors.tm1_cell_value import TM1CellValueSensor
@@ -22,10 +23,13 @@ with DAG(dag_id="example_value_sensor", default_args=default_args) as dag:
         # timeout in 12 hours
         timeout=60 * 60 * 12,
         tm1_conn_id="tm1_default",
-        cube="GL",
-        value=0,
-        elements="RF,2021,Sales,Amount",
-        op=gt,  # apply the greater than operator
+        cube="Task Workflow",
+        value=1,
+        elements="OPEX,Total Company,Complete",
+        # apply the greater than operator
+        op=gt,
     )
 
-    t1
+    t2 = DummyOperator(task_id='do_nothing')
+
+    t1 < t2
