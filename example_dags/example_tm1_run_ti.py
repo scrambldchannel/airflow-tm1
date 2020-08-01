@@ -14,14 +14,13 @@ default_args = {
 }
 
 dag = DAG(
-    dag_id="example_tm1_run_ti",
+    dag_id="example_run_ti",
     default_args=default_args,
 )
 
 t1 = TM1RunTIOperator(
-    task_id="getTaeFuck",
+    task_id="trigger_refresh_feeders",
     process_name="Refresh Feeders",
     parameters={"pCube": "Capital"},
     dag=dag,
-
 )

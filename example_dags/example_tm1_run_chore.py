@@ -13,13 +13,12 @@ default_args = {
 }
 
 dag = DAG(
-    dag_id="example_tm1_run_chore",
+    dag_id="example_run_chore",
     default_args=default_args,
 )
 
 t1 = TM1RunChoreOperator(
-    task_id="getTaeFuck22",
+    task_id="trigger_cache_views",
     chore_name="cache_views",
     dag=dag,
-
 )
