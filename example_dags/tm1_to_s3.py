@@ -20,23 +20,23 @@ dag = DAG(
 )
 
 
-def cube_view_to_s3(cube, view, **kwargs):
+def cube_view_to_s3(cube, view, bucket, key, **kwargs):
 
     tm1_hook = TM1Hook(tm1_conn_id="tm1_default")
     tm1 = tm1_hook.get_conn()
 
     view_data = tm1.cubes.cells.execute_view_csv(
         cube_name=cube, view_name=view, private=False)
-    s3_hook = S3Hook(aws_conn_id="s3_default")
 
+    s3_hook = S3Hook(aws_conn_id="s3_default")
     s3_hook.load_string(string_data=view_data, key=key,
                         bucket_name=bucket, replace=True)
 
 
 t1 = PythonOperator(
-    task_id="cube_from_TM1",
+    task_id="view_to_S3",
     python_callable=cube_view_to_s3,
-    op_kwargs={"cube": "Revenue", "view": "zExport Data",
-               "key": "Revenue", "bucket": "airflow-test"},
+    op_kwargs={"cube": "Income Statement Reporting", "view": "Income Statement - Management", "key": 'airflow-test/{{ ds_nodash }}.csv',
+               "bucket": "scrambldbucket"},
     dag=dag,
 )
