@@ -6,18 +6,14 @@ from airflow.utils.dates import days_ago, timedelta
 from airflow_tm1.hooks.tm1 import TM1Hook
 
 default_args = {
-    "owner": "airflow",
-    "depends_on_past": False,
+    "owner": "Airflow",
     "start_date": days_ago(2),
-    "retries": 0,
-    "retry_delay": timedelta(minutes=5),
-    "schedule_interval": "@daily",
+    "depends_on_past": False,
+    "email_on_failure": False,
+    "email_on_retry": False,
+    "email": "you@somewhere.com",
+    "retries": 1
 }
-
-dag = DAG(
-    dag_id="view_to_s3_example",
-    default_args=default_args,
-)
 
 
 def cube_view_to_s3(cube, view, bucket, key, **kwargs):
@@ -33,10 +29,14 @@ def cube_view_to_s3(cube, view, bucket, key, **kwargs):
                         bucket_name=bucket, replace=True)
 
 
-t1 = PythonOperator(
-    task_id="view_to_S3",
-    python_callable=cube_view_to_s3,
-    op_kwargs={"cube": "Income Statement Reporting", "view": "Income Statement - Management", "key": 'airflow-test/{{ ds_nodash }}.csv',
-               "bucket": "scrambldbucket"},
-    dag=dag,
-)
+with DAG(dag_id="example_tm1_to_s3", schedule_interval="@daily", default_args=default_args) as dag:
+
+    t1 = PythonOperator(
+        task_id="view_to_S3",
+        python_callable=cube_view_to_s3,
+        op_kwargs={"cube": "Income Statement Reporting", "view": "Income Statement - Management", "key": 'airflow-test/{{ ds_nodash }}.csv',
+                   "bucket": "scrambldbucket"},
+        dag=dag,
+    )
+
+    t1

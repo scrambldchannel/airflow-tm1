@@ -9,16 +9,14 @@ default_args = {
     "start_date": days_ago(2),
     "retries": 0,
     "retry_delay": timedelta(minutes=5),
-    "schedule_interval": "@daily",
 }
 
-dag = DAG(
-    dag_id="example_run_chore",
-    default_args=default_args,
-)
+with DAG(dag_id="example_run_chore", default_args=default_args) as dag:
 
-t1 = TM1RunChoreOperator(
-    task_id="trigger_cache_views",
-    chore_name="cache_views",
-    dag=dag,
-)
+    t1 = TM1RunChoreOperator(
+        task_id="run_chore",
+        chore_name="cache_views",
+        dag=dag,
+    )
+
+    t1
