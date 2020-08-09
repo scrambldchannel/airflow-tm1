@@ -10,7 +10,7 @@ class TestTM1Hook(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Create the connection but don't commit it
-        conn = Connection(
+        test_conn = Connection(
             conn_id="tm1_default",
             host="localhost",
             login="admin",
@@ -19,7 +19,7 @@ class TestTM1Hook(unittest.TestCase):
             extra="""{"ssl":false}""",
         )
         session = settings.Session()
-        session.add(conn)
+        session.add(test_conn)
 
     def test_create_hook(self):
         hook = TM1Hook(tm1_conn_id="tm1_default")
