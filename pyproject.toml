@@ -18,6 +18,7 @@ readme = "README.md"
 [project.optional-dependencies]
 tests = [
   'pytest',
+  'pytest-mock'
 ]
 
 
