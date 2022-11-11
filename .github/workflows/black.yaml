@@ -1,0 +1,13 @@
+name: black
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: ["src/**/*", "tests/**/*"]
+
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
