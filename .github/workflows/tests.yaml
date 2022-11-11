@@ -19,7 +19,7 @@ jobs:
     # potentially add further python versions to test against
     strategy:
       matrix:
-        python-version: [3.7]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
 
@@ -49,9 +49,9 @@ jobs:
         run:
           pip install .
 
-      - name: install pytest
+      - name: install pytest pytest-mock
         run:
-          pip install pytest
+          pip install pytest pytest-mock
 
       - name: run core tests
         run: pytest -s -v tests
