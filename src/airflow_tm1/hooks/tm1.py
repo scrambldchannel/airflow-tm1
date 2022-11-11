@@ -47,22 +47,14 @@ class TM1Hook(BaseHook):
             "timeout",
             "connection_pool_size",
         ]
-        extra_args = {
-            name: val
-            for name, val in conn.extra_dejson.items()
-            if name in extra_arg_names
-        }
+        extra_args = {name: val for name, val in conn.extra_dejson.items() if name in extra_arg_names}
 
         # Set a default for session context for easier identification in TM1top etc.
         if "session_context" not in extra_args:
             extra_args["session_context"] = "Airflow"
 
         self.tm1 = TM1Service(
-            address=self.address,
-            port=self.port,
-            user=self.user,
-            password=self.password,
-            **extra_args
+            address=self.address, port=self.port, user=self.user, password=self.password, **extra_args
         )
 
         self.db = self.tm1.server.get_server_name()

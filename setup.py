@@ -21,7 +21,14 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    install_requires=["apache-airflow", "TM1py", ],
-    tests_require=["pytest", ],
-    extras_require={"devel": ["pre-commit"], },
+    install_requires=[
+        "apache-airflow",
+        "TM1py",
+    ],
+    tests_require=[
+        "pytest",
+    ],
+    extras_require={
+        "devel": ["pre-commit"],
+    },
 )

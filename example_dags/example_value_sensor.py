@@ -1,4 +1,4 @@
-from operator import eq, ge, gt, le, lt, ne
+from operator import gt
 
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
@@ -17,7 +17,7 @@ default_args = {
 with DAG(dag_id="example_value_sensor", default_args=default_args) as dag:
 
     t1 = TM1CellValueSensor(
-        task_id='check_value',
+        task_id="check_value",
         # check every 15 minutes
         poke_interval=60 * 15,
         # timeout in 12 hours
@@ -30,6 +30,6 @@ with DAG(dag_id="example_value_sensor", default_args=default_args) as dag:
         op=gt,
     )
 
-    t2 = DummyOperator(task_id='do_nothing')
+    t2 = DummyOperator(task_id="do_nothing")
 
     t1 >> t2

@@ -38,9 +38,7 @@ class TM1RunTIOperator(BaseOperator):
         tm1 = tm1_hook.get_conn()
 
         if not tm1.processes.exists(self.process_name):
-            raise Exception(
-                f"Process {self.process_name} not found on TM1 server {tm1_hook.db}."
-            )
+            raise Exception(f"Process {self.process_name} not found on TM1 server {tm1_hook.db}.")
         else:
             print(
                 f"Process {self.process_name} executed on TM1 server {tm1_hook.db} with parameters {self.parameters}."
