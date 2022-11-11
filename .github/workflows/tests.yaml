@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: ["airflow-tm1/**/*", "tests/**/*"]
+
+  push:
+    branches:
+    - main
+    paths:
+    - "airflow-tm1/**/*"
+
+jobs:
+
+  pytest:
+    runs-on: ubuntu-latest
+
+    # potentially add further python versions to test against
+    strategy:
+      matrix:
+        python-version: ['3.9.7']
+
+    steps:
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: setup python env
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: upgrade pip
+        run:
+          python -m pip install --upgrade pip
+
+      - name: install tm1py
+        run:
+          pip install tm1py
+
+      # is there a better approach to this?
+      # e.g. can I run an airflow docker container and test against that?
+      - name: install airflow
+        run:
+          pip install apache-airflow
+
+      - name: install airflow-tm1 package
+        run:
+          pip install .
+
+      - name: install pytest
+        run:
+          pip install pytest
+
+      - name: run core tests
+        run: pytest -s -v tests
