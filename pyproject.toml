@@ -7,7 +7,16 @@ name = "airflow-tm1"
 authors = [
   { name="Alexander Sutcliffe", email="sutcliffe.alex@gmail.com" },
 ]
+dependencies = [
+  'tm1py ~= 1.1',
+  'apache-airflow ~= 2.1'
+]
 dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+tests = [
+  'pytest',
+]
 
 
 
