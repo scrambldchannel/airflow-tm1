@@ -12,6 +12,8 @@ dependencies = [
   'apache-airflow ~= 2.1'
 ]
 dynamic = ["version", "description"]
+readme = "README.md"
+
 
 [project.optional-dependencies]
 tests = [
