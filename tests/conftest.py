@@ -1,7 +1,23 @@
 import pytest
+from airflow.models import Connection
 
 # from TM1py import Cube, Dimension, DimensionService, Element, Hierarchy
 from TM1py.Services.RestService import RestService
+
+
+@pytest.fixture(scope="function")
+def airflow_connection():
+
+    conn = Connection(
+        conn_id="tm1_default",
+        host="localhost",
+        login="admin",
+        password="apple",
+        port=10001,
+        extra="""{"ssl":false}""",
+    )
+
+    return conn
 
 
 @pytest.fixture(scope="function")
