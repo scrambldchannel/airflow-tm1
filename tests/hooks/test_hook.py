@@ -1,12 +1,9 @@
-# import pytest
-
 from airflow_tm1.hooks.tm1 import TM1Hook
 
-# from airflow import settings
-# from airflow.models import Connection
+# import pytest
 
 
-def test_hook_init(mock_rest_service, airflow_connection):
+def test_hook_init():
 
     hook = TM1Hook()
 
