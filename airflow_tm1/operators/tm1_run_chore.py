@@ -36,4 +36,4 @@ class TM1RunChoreOperator(BaseOperator):
         else:
             print(
                 f"Chore {self.chore_name} executed on TM1 server {tm1_hook.db}.")
-            tm1.processes.execute(self.chore_name)
+            tm1.chores.execute(self.chore_name)
