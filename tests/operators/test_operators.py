@@ -1,5 +1,5 @@
-from airflow_provider_tm1.operators.tm1_run_chore import TM1RunChoreOperator
-from airflow_provider_tm1.operators.tm1_run_ti import TM1RunTIOperator
+from airflow_tm1.operators.tm1_run_chore import TM1RunChoreOperator
+from airflow_tm1.operators.tm1_run_ti import TM1RunTIOperator
 
 # import pytest
 
