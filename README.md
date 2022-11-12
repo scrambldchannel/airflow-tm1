@@ -4,8 +4,8 @@ A package that provides a hook to simplify connecting to the IBM Cognos TM1 / Pl
 
 ## Requirements
 
-* Python 3.6+
-* Airflow
+* Python 3.7+
+* Airflow 1.x
 * TM1py
 
 ## Installation
