@@ -1,4 +1,7 @@
 **Note: this was an old proof of concept for Airflow 1.x and probably isn't useful for most people**
+
+I've started a airflow 2 style provider at https://github.com/scrambldchannel/airflow-provider-tm1, help wanted ;)
+
 # airflow-tm1
 
 A package that provides a hook to simplify connecting to the IBM Cognos TM1 / Planning Analytics REST API.
