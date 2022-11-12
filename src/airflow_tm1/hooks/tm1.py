@@ -1,10 +1,8 @@
-from typing import Optional
-
-from airflow.hooks.base_hook import BaseHook
+# from airflow.hooks.base import BaseHook
 from TM1py.Services import TM1Service
 
 
-class TM1Hook(BaseHook):
+class TM1Hook:
     """
     Interact with IBM Cognos TM1, using the TM1py library.
     """
@@ -17,7 +15,7 @@ class TM1Hook(BaseHook):
         """
 
         self.tm1_conn_id: str = None
-        self.tm1: Optional[TM1Service] = None
+        self.tm1: TM1Service = None
 
         # connection params
         # think about how to structure this
@@ -28,50 +26,50 @@ class TM1Hook(BaseHook):
         self.db = None
         self.server_version = None
 
-    def init(self, **kwargs):
+    # def init(self, **kwargs):
 
-        # Set a default for session context for easier identification in TM1top etc.
+    #     # Set a default for session context for easier identification in TM1top etc.
 
-        # check for relevant additional parameters in conn.extra
-        # except session_id as not sure if this makes sense in an Airflow context
-        # extra_arg_names = [
-        #     "base_url",
-        #     "decode_b64",
-        #     "namespace",
-        #     "ssl",
-        #     "session_context",
-        #     "logging",
-        #     "timeout",
-        #     "connection_pool_size",
-        # ]
+    #     # check for relevant additional parameters in conn.extra
+    #     # except session_id as not sure if this makes sense in an Airflow context
+    #     # extra_arg_names = [
+    #     #     "base_url",
+    #     #     "decode_b64",
+    #     #     "namespace",
+    #     #     "ssl",
+    #     #     "session_context",
+    #     #     "logging",
+    #     #     "timeout",
+    #     #     "connection_pool_size",
+    #     # ]
 
-        pass
-        # extra_args = {name: val for name, val in conn.extra_dejson.items() if name in extra_arg_names}
+    #     pass
+    #     # extra_args = {name: val for name, val in conn.extra_dejson.items() if name in extra_arg_names}
 
-        # if "session_context" not in kwargs:
-        #     kwargs["session_context"] = "Airflow"
+    #     # if "session_context" not in kwargs:
+    #     #     kwargs["session_context"] = "Airflow"
 
-        # self.tm1 = TM1Service(
-        #     address=self.address, port=self.port, user=self.user, password=self.password, **extra_args
-        # )
+    #     # self.tm1 = TM1Service(
+    #     #     address=self.address, port=self.port, user=self.user, password=self.password, **extra_args
+    #     # )
 
-    def init_from_connection(self, connection: str) -> TM1Service:
-        """
-        Uses the connection details to create and return an instance of a TM1Service object.
-        :return: TM1Service
-        """
+    # def init_from_connection(self, connection: str) -> TM1Service:
+    #     """
+    #     Uses the connection details to create and return an instance of a TM1Service object.
+    #     :return: TM1Service
+    #     """
 
-        conn = self.get_connection(self.tm1_conn_id)
-        self.address = conn.host
-        self.port = conn.port
-        self.user = conn.login
-        self.password = conn.password
+    #     conn = connection
+    #     self.address = conn.host
+    #     self.port = conn.port
+    #     self.user = conn.login
+    #     self.password = conn.password
 
-        # self.tm1 = TM1Service(
-        #     address=self.address, port=self.port, user=self.user, password=self.password, **extra_args
-        # )
+    #     # self.tm1 = TM1Service(
+    #     #     address=self.address, port=self.port, user=self.user, password=self.password, **extra_args
+    #     # )
 
-        # self.db = self.tm1.server.get_server_name()
-        # self.server_version = self.tm1.server.get_product_version()
+    #     # self.db = self.tm1.server.get_server_name()
+    #     # self.server_version = self.tm1.server.get_product_version()
 
-        # return self.tm1
+    #     # return self.tm1
